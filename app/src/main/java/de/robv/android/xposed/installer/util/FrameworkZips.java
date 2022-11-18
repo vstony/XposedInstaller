@@ -42,7 +42,7 @@ public final class FrameworkZips {
     public static final String SDK = Integer.toString(Build.VERSION.SDK_INT);
 
     private static final File ONLINE_FILE = new File(XposedApp.getInstance().getCacheDir(), "framework.json");
-    private static final String ONLINE_URL = "http://dl-xda.xposed.info/framework.json";
+    private static final String ONLINE_URL = "http://10.10.3.162/framework.json";
 
     public enum Type {
         INSTALLER(R.string.install_update, R.string.framework_install, R.string.framework_install_recovery),
@@ -58,10 +58,12 @@ public final class FrameworkZips {
             this.text_flash_recovery = text_flash_recovery;
         }
     }
+
     private static final int TYPE_COUNT = Type.values().length;
 
     @SuppressWarnings("rawtypes")
     private static final Map[] EMPTY_MAP_ARRAY = new Map[TYPE_COUNT];
+
     static {
         Arrays.fill(EMPTY_MAP_ARRAY, Collections.emptyMap());
     }
@@ -70,8 +72,8 @@ public final class FrameworkZips {
     private static Map<String, List<LocalFrameworkZip>>[] sLocal = emptyMapArray();
 
     @SuppressWarnings("unchecked")
-    public static <K,V> Map<K,V>[] emptyMapArray() {
-        return (Map<K,V>[]) EMPTY_MAP_ARRAY;
+    public static <K, V> Map<K, V>[] emptyMapArray() {
+        return (Map<K, V>[]) EMPTY_MAP_ARRAY;
     }
 
     public static class FrameworkZip {
@@ -108,7 +110,9 @@ public final class FrameworkZips {
     private static Map<String, OnlineFrameworkZip>[] getOnline() {
         String text;
         try {
+            Log.i("ONLINE_FILE path", ONLINE_FILE.getAbsolutePath());
             text = fileToString(ONLINE_FILE);
+            Log.i("ONLINE_FILE text", text);
         } catch (FileNotFoundException e) {
             return emptyMapArray();
         } catch (IOException e) {
@@ -152,7 +156,8 @@ public final class FrameworkZips {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException ignored) {}
+                } catch (IOException ignored) {
+                }
             }
         }
     }

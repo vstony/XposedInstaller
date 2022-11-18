@@ -495,6 +495,10 @@ public class DownloadsUtil {
         InputStream in = null;
         FileOutputStream out = null;
         try {
+            url = url == null ? null : url.replace("https", "http");
+            url = url == null ? null : url.replace("dl.xposed.info", "10.10.3.162");
+            url = url == null ? null : url.replace("dl-xda.xposed.info", "10.10.3.162");
+
             connection = new URL(url).openConnection();
             connection.setDoOutput(false);
             connection.setConnectTimeout(30000);

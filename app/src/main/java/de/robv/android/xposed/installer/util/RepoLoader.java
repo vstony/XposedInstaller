@@ -225,6 +225,9 @@ public class RepoLoader extends OnlineLoader<RepoLoader> {
             final Repository repo = repoEntry.getValue();
 
             String url = (repo.partialUrl != null && repo.version != null) ? String.format(repo.partialUrl, repo.version) : repo.url;
+            url = url == null ? null : url.replace("https", "http");
+            url = url == null ? null : url.replace("dl.xposed.info", "10.10.3.162");
+            url = url == null ? null : url.replace("dl-xda.xposed.info", "10.10.3.162");
 
             File cacheFile = getRepoCacheFile(url);
             SyncDownloadInfo info = DownloadsUtil.downloadSynchronously(url,
